@@ -7,11 +7,15 @@
 
 
 #include "TripleLinkedListNode.h"
+#include "../../Utils/Pair.h"
 
 class TripleLinkedList
 {
-public:
+protected:
     TripleLinkedListNode * root = nullptr;
+public:
+    TripleLinkedListNode * getHighestPriority(TripleLinkedListNode * left, TripleLinkedListNode * right);
+    Pair<TripleLinkedListNode *> lowestAndHighestPriority(TripleLinkedListNode * left, TripleLinkedListNode * right);
 
 };
 

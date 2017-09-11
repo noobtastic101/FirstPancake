@@ -6,14 +6,26 @@
 #define INC_1_TRIPLELINKEDLISTNODE_H
 
 
+#include "../../ProcessControlBlock.h"
+
 class TripleLinkedListNode
 {
 protected:
     TripleLinkedListNode * left;
     TripleLinkedListNode * child;
     TripleLinkedListNode * next;
+
 public:
+    ProcessControlBlock * process;
     TripleLinkedListNode(TripleLinkedListNode *left = nullptr, TripleLinkedListNode *child = nullptr, TripleLinkedListNode *next = nullptr);
+
+    TripleLinkedListNode(ProcessControlBlock *process);
+
+    //ProcessControlBlock * assignLeft(ProcessControlBlock * process);
+    virtual ProcessControlBlock * assignChild(ProcessControlBlock * process);
+    virtual ProcessControlBlock * assignChild(TripleLinkedListNode * child);
+
+    virtual ~TripleLinkedListNode();
 };
 
 
