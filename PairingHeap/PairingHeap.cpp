@@ -3,7 +3,6 @@
 //
 
 #include "PairingHeap.h"
-#include "TripleLinkedList.h"
 
 /*
  * Display the IDs and the priorties of the processes in the queue
@@ -22,5 +21,21 @@ TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinked
 {
     Pair<TripleLinkedListNode *> lowestAndHighest = this->nodes.lowestAndHighestPriority(left, right);
     lowestAndHighest.right->assignChild(lowestAndHighest.left);
+}
+
+ProcessControlBlock *PairingHeap::removeMax() {
+    return nullptr;
+}
+
+bool PairingHeap::isEmpty() {
+    return false;
+}
+
+int PairingHeap::size() {
+    return 0;
+}
+
+ProcessControlBlock *PairingHeap::getMax() {
+    return nullptr;
 }
 
