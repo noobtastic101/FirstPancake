@@ -29,7 +29,7 @@ public:
     bool isRunning() const;
     bool isWaiting() const;
     bool isTerminated() const;
-    int getId() const;\
+    int getId() const;
     int getPriority() const;
 
     void setReady(bool ready);
