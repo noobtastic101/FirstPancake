@@ -14,7 +14,7 @@ private:
     bool waiting = false;
     bool terminated = false;
 
-    static int counter = 0;
+    static int counter = 1;
     static int maxPriority = 50;
 
 protected:
@@ -25,31 +25,19 @@ public:
     ProcessControlBlock();
 
     bool isNew() const;
-
     bool isReady() const;
-
     bool isRunning() const;
-
     bool isWaiting() const;
-
     bool isTerminated() const;
-
-    int getId() const;
-
+    int getId() const;\
     int getPriority() const;
 
     void setReady(bool ready);
-
     void setRunning(bool running);
-
     void setWaiting(bool waiting);
-
     void setTerminated(bool terminated);
-
     void setNew(bool newState);
-
     void setId(int id);
-
     void setPriority(int priority);
 };
 
