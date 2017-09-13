@@ -10,11 +10,11 @@
 
 using std::max;
 
-class PairingHeap
+class PairingHeap : public TripleLinkedList
 {
 
 protected:
-    TripleLinkedList nodes;
+    //TripleLinkedList nodes;
     int nodesCount = 0;
 
 public:

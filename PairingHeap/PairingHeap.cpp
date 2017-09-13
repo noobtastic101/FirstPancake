@@ -14,13 +14,15 @@ void PairingHeap::print() {
 
 ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
 {
-
+    this->root = this->meld(this->root, new TripleLinkedListNode(process));
 }
 
 TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinkedListNode *right)
 {
-    Pair<TripleLinkedListNode *> lowestAndHighest = this->nodes.lowestAndHighestPriority(left, right);
+    Pair<TripleLinkedListNode *> lowestAndHighest = this->lowestAndHighestPriority(left, right);
     lowestAndHighest.right->assignChild(lowestAndHighest.left);
+
+    return lowestAndHighest.right;
 }
 
 ProcessControlBlock *PairingHeap::removeMax() {
@@ -36,6 +38,6 @@ int PairingHeap::size() {
 }
 
 ProcessControlBlock *PairingHeap::getMax() {
-    return nullptr;
+    return this->root->process;
 }
 
