@@ -25,8 +25,39 @@ TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinked
     return lowestAndHighest.right;
 }
 
-ProcessControlBlock *PairingHeap::removeMax() {
-    return nullptr;
+ProcessControlBlock *PairingHeap::removeMax()
+{
+    //first pass: go left to right. Meld every 2 nodes into a new pairing heap, and store the new heap in a
+    //queue
+
+    deque<TripleLinkedListNode *> nodeQueue = deque();
+    TripleLinkedListNode * currentNode = this->root->child;
+
+    int count = 1;
+    while(currentNode != nullptr)
+    {
+        if((count % 2) == 0)
+            nodeQueue.push_back(this->meld(currentNode->left, currentNode));
+
+        currentNode = currentNode->next;
+        count++;
+    }
+
+    if(count != 1 && (count % 2) != 0)
+        nodeQueue.push_back(currentNode);
+
+    TripleLinkedListNode * right = this->pop_n_get_back(nodeQueue);
+    TripleLinkedListNode * left;
+
+    //second pass: go right to left
+    for(unsigned long index = nodeQueue.size() - 2; index > -1; index--)
+    {
+        left = this->pop_n_get_back(nodeQueue);
+        right = this->meld(left, right);
+    }
+
+    //check this
+    this->root = right;
 }
 
 bool PairingHeap::isEmpty() {

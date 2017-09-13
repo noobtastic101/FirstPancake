@@ -6,12 +6,23 @@
 #define INC_1_PAIRINGHEAP_H
 
 #include <algorithm>
+#include <deque>
+
 #include "TripleLinkedList/TripleLinkedList.h"
 
 using std::max;
+using std::deque;
 
 class PairingHeap : public TripleLinkedList
 {
+private:
+    TripleLinkedListNode * pop_n_get_back(deque & dq)
+    {
+        TripleLinkedListNode * backNode = dq.back();
+        dq.pop_back();
+
+        return backNode;
+    }
 
 protected:
     //TripleLinkedList nodes;

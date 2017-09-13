@@ -11,11 +11,12 @@
 class TripleLinkedListNode
 {
 protected:
+
+
+public:
     TripleLinkedListNode * left;
     TripleLinkedListNode * child;
     TripleLinkedListNode * next;
-
-public:
     ProcessControlBlock * process;
     TripleLinkedListNode(TripleLinkedListNode *left = nullptr, TripleLinkedListNode *child = nullptr, TripleLinkedListNode *next = nullptr);
 
