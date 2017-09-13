@@ -23,6 +23,7 @@ private:
 
         return backNode;
     }
+    
 
 protected:
     //TripleLinkedList nodes;

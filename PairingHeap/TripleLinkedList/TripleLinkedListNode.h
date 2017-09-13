@@ -22,9 +22,13 @@ public:
 
     TripleLinkedListNode(ProcessControlBlock *process);
 
+    void print();
+
     //ProcessControlBlock * assignLeft(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(TripleLinkedListNode * child);
+
+    v
 
     virtual ~TripleLinkedListNode();
 };

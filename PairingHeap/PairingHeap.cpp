@@ -9,8 +9,23 @@
  */
 
 void PairingHeap::print() {
+    TripleLinkedListNode * currentNode = this->root;
 
+    while(currentNode != nullptr)
+    {
+        if(currentNode->child != nullptr)
+        {
+            currentNode = currentNode->child;
+            continue;
+        }
+
+        currentNode->print();
+
+        currentNode = currentNode->next;
+    }
 }
+
+
 
 ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
 {
@@ -30,6 +45,12 @@ ProcessControlBlock *PairingHeap::removeMax()
     //first pass: go left to right. Meld every 2 nodes into a new pairing heap, and store the new heap in a
     //queue
 
+    if(this->root->child != nullptr && this->root->child->next == nullptr)
+    {
+        this->root = this->root->child;
+        return this->root->process;
+    }
+
     deque<TripleLinkedListNode *> nodeQueue = deque();
     TripleLinkedListNode * currentNode = this->root->child;
 
@@ -43,7 +64,7 @@ ProcessControlBlock *PairingHeap::removeMax()
         count++;
     }
 
-    if(count != 1 && (count % 2) != 0)
+    if((count % 2) != 0)
         nodeQueue.push_back(currentNode);
 
     TripleLinkedListNode * right = this->pop_n_get_back(nodeQueue);

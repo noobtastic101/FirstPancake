@@ -20,3 +20,4 @@ TripleLinkedList::lowestAndHighestPriority(TripleLinkedListNode *left, TripleLin
     else
         return Pair<TripleLinkedListNode *>(left, right);
 }
+

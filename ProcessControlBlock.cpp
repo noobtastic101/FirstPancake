@@ -65,3 +65,10 @@ int ProcessControlBlock::getPriority() const {
 void ProcessControlBlock::setPriority(int priority) {
     ProcessControlBlock::priority = priority;
 }
+
+//Display the IDs and the priorties of the processes in the queue
+
+void ProcessControlBlock::print()
+{
+    cout << "ID: " << this->getId() << ", Priority: " << this->getPriority() << endl;
+}

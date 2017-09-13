@@ -32,6 +32,16 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *chi
     oldChild->left = this->child;
 }
 
+/*
+ * Display the IDs and the priorties of the processes in the queue
+ */
+
+
+void TripleLinkedListNode::print()
+{
+    this->process->print();
+}
+
 ProcessControlBlock *TripleLinkedListNode::assignLeft(ProcessControlBlock *process) {
-    if()
+
 }

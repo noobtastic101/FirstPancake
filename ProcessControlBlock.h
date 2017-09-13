@@ -5,6 +5,11 @@
 #ifndef INC_1_PROCESS_H
 #define INC_1_PROCESS_H
 
+#include <iostream>
+
+using std::cout;
+using std::endl;
+
 
 class ProcessControlBlock {
 private:
@@ -39,6 +44,8 @@ public:
     void setNew(bool newState);
     void setId(int id);
     void setPriority(int priority);
+
+    void print();
 };
 
 
