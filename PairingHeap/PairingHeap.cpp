@@ -10,9 +10,8 @@
 
 void PairingHeap::print()
 {
-
+    this->display(this->root);
 }
-
 
 
 ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
@@ -95,7 +94,7 @@ void PairingHeap::display(TripleLinkedListNode *currentNode)
     {
         display(currentNode->left);
         display(currentNode->next);
-        currentNode->print();om
+        currentNode->print();
     }
 }
 

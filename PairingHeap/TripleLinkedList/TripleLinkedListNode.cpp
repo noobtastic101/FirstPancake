@@ -49,7 +49,3 @@ TripleLinkedListNode::TripleLinkedListNode()
 {
 
 }
-
-ProcessControlBlock *TripleLinkedListNode::assignLeft(ProcessControlBlock *process) {
-
-}

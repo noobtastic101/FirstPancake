@@ -13,7 +13,8 @@ class TripleLinkedList
 {
 protected:
     TripleLinkedListNode * root = nullptr;
-    void display(TripleLinkedListNode * currentNode);
+
+    void del(TripleLinkedListNode *currentNode);
 public:
     TripleLinkedListNode * getHighestPriority(TripleLinkedListNode * left, TripleLinkedListNode * right);
     Pair<TripleLinkedListNode *> lowestAndHighestPriority(TripleLinkedListNode * left, TripleLinkedListNode * right);

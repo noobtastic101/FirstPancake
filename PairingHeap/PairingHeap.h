@@ -20,7 +20,8 @@ class PairingHeap : public TripleLinkedList
 {
 private:
     TripleLinkedListNode * pop_n_get_back(deque & dq);
-    void display(TripleLinkedListNode * currentNode);
+
+    void display(TripleLinkedListNode *currentNode);
 
 protected:
     //TripleLinkedList nodes;
@@ -34,7 +35,6 @@ public:
     ProcessControlBlock * getMax();
     void print();
     TripleLinkedListNode * meld(TripleLinkedListNode * left, TripleLinkedListNode * right);
-
 };
 
 
