@@ -11,7 +11,10 @@ TripleLinkedListNode::TripleLinkedListNode(TripleLinkedListNode *left, TripleLin
 }
 
 TripleLinkedListNode::~TripleLinkedListNode() {
-    //TODO: Write me!
+    delete this->left;
+    delete this->next;
+    delete this->child;
+    delete this->process;
 }
 
 ProcessControlBlock *TripleLinkedListNode::assignChild(ProcessControlBlock *process)
@@ -40,6 +43,11 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *chi
 void TripleLinkedListNode::print()
 {
     this->process->print();
+}
+
+TripleLinkedListNode::TripleLinkedListNode()
+{
+
 }
 
 ProcessControlBlock *TripleLinkedListNode::assignLeft(ProcessControlBlock *process) {

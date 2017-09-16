@@ -7,23 +7,20 @@
 
 #include <algorithm>
 #include <deque>
+#include <stack>
+#include <vector>
 
 #include "TripleLinkedList/TripleLinkedList.h"
 
 using std::max;
 using std::deque;
 
+
 class PairingHeap : public TripleLinkedList
 {
 private:
-    TripleLinkedListNode * pop_n_get_back(deque & dq)
-    {
-        TripleLinkedListNode * backNode = dq.back();
-        dq.pop_back();
-
-        return backNode;
-    }
-    
+    TripleLinkedListNode * pop_n_get_back(deque & dq);
+    void display(TripleLinkedListNode * currentNode);
 
 protected:
     //TripleLinkedList nodes;

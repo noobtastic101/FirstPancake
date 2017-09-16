@@ -54,6 +54,9 @@ void ProcessControlBlock::setId(int id) {
 
 ProcessControlBlock::ProcessControlBlock()
 {
+    counter = 1;
+    maxPriority = 50;
+
     this->id = counter;
     counter++;
 }

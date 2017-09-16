@@ -14,21 +14,21 @@ protected:
 
 
 public:
-    TripleLinkedListNode * left;
-    TripleLinkedListNode * child;
-    TripleLinkedListNode * next;
-    ProcessControlBlock * process;
-    TripleLinkedListNode(TripleLinkedListNode *left = nullptr, TripleLinkedListNode *child = nullptr, TripleLinkedListNode *next = nullptr);
+    TripleLinkedListNode * left = nullptr;
+    TripleLinkedListNode * child = nullptr;
+    TripleLinkedListNode * next = nullptr;
+    TripleLinkedListNode * parent = nullptr;
+    ProcessControlBlock * process = nullptr;
 
-    TripleLinkedListNode(ProcessControlBlock *process);
+    explicit TripleLinkedListNode(TripleLinkedListNode *left = nullptr, TripleLinkedListNode *child = nullptr, TripleLinkedListNode *next = nullptr);
+    explicit TripleLinkedListNode(ProcessControlBlock *process);
+    TripleLinkedListNode();
 
     void print();
 
     //ProcessControlBlock * assignLeft(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(TripleLinkedListNode * child);
-
-    v
 
     virtual ~TripleLinkedListNode();
 };

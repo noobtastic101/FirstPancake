@@ -8,21 +8,9 @@
  * Display the IDs and the priorties of the processes in the queue
  */
 
-void PairingHeap::print() {
-    TripleLinkedListNode * currentNode = this->root;
+void PairingHeap::print()
+{
 
-    while(currentNode != nullptr)
-    {
-        if(currentNode->child != nullptr)
-        {
-            currentNode = currentNode->child;
-            continue;
-        }
-
-        currentNode->print();
-
-        currentNode = currentNode->next;
-    }
 }
 
 
@@ -91,5 +79,23 @@ int PairingHeap::size() {
 
 ProcessControlBlock *PairingHeap::getMax() {
     return this->root->process;
+}
+
+TripleLinkedListNode *PairingHeap::pop_n_get_back(deque &dq)
+{
+    TripleLinkedListNode * backNode = dq.back();
+    dq.pop_back();
+
+    return backNode;
+}
+
+void PairingHeap::display(TripleLinkedListNode *currentNode)
+{
+    if(currentNode != nullptr)
+    {
+        display(currentNode->left);
+        display(currentNode->next);
+        currentNode->print();om
+    }
 }
 

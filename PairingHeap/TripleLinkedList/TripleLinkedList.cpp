@@ -21,3 +21,48 @@ TripleLinkedList::lowestAndHighestPriority(TripleLinkedListNode *left, TripleLin
         return Pair<TripleLinkedListNode *>(left, right);
 }
 
+TripleLinkedList::~TripleLinkedList()
+{
+    TripleLinkedListNode * currentNode = this->root;
+    TripleLinkedListNode * next;
+
+    while(currentNode != nullptr)
+    {
+        if(currentNode->child != nullptr)
+        {
+            currentNode = currentNode->child;
+            continue;
+        }
+
+        next = currentNode->next;
+        delete currentNode;
+        currentNode = currentNode->next;
+    }
+}
+
+void TripleLinkedList::display(TripleLinkedListNode *currentNode)
+{
+    if(currentNode == nullptr)
+        return;
+
+    currentNode = currentNode->child;
+
+    this->display(currentNode);
+
+
+
+    currentNode = currentNode->next;
+
+    this->display(currentNode);
+
+
+
+    while(currentNode != this->root)
+    {
+        currentNode->print();
+        currentNode = currentNode->left;
+
+
+    }
+}
+

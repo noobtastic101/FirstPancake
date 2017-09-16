@@ -1,9 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <deque>
 
 #include "Processes.h"
 
 using namespace std;
+
+
 
 void runTestOne()
 {
@@ -26,7 +29,13 @@ void runTestOne()
 }
 
 int main() {
-    runTestOne();
+    deque<int> example;
+
+    example.push_back(5);
+    example.push_back(6);
+    example.push_back(7);
+
+    cout << "Front: " << example.front() << endl;
 }
 
 

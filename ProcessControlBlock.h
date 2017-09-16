@@ -19,8 +19,8 @@ private:
     bool waiting = false;
     bool terminated = false;
 
-    static int counter = 1;
-    static int maxPriority = 50;
+    static int counter;
+    static int maxPriority;
 
 protected:
     int id;
