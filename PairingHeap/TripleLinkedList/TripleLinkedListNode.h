@@ -26,7 +26,6 @@ public:
 
     void print();
 
-    //ProcessControlBlock * assignLeft(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(ProcessControlBlock * process);
     virtual ProcessControlBlock * assignChild(TripleLinkedListNode * child);
 
