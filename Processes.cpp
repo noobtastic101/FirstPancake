@@ -31,6 +31,7 @@ ProcessControlBlock Processes::removeHighestProc()
     if(this->readyQueue.empty())
         return ProcessControlBlock(-1);
 
+
     ProcessControlBlock formallyHighestPriorityBlock = this->readyQueue.front();
     this->readyQueue.erase(this->readyQueue.begin());
 
@@ -38,6 +39,7 @@ ProcessControlBlock Processes::removeHighestProc()
 
     storedProcess->setReady(false);
     storedProcess->setRunning(true);
+    storedProcess->print();
 
     return *storedProcess;
 }
