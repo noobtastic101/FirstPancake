@@ -1,6 +1,7 @@
 ##################################
-# OS COURSE - CS 433 example
-#
+# Operating Systems- CS 433 Assignment 1
+#Kyle Gullicksen
+#Benjamin Siegel
 ###################################
 CC = g++                        # use g++ for compiling c++ code or gcc for c code
 CFLAGS = -g -Wall               # compilation flags: -g for debugging. Change to -O or -O2 for optimized code.
