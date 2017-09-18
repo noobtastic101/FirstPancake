@@ -4,6 +4,9 @@
 
 #include "ProcessControlBlock.h"
 
+int ProcessControlBlock::counter = 1;
+int ProcessControlBlock::maxPriority = 50;
+
 bool ProcessControlBlock::isReady() const {
     return ready;
 }
@@ -54,9 +57,6 @@ void ProcessControlBlock::setId(int id) {
 
 ProcessControlBlock::ProcessControlBlock()
 {
-    counter = 1;
-    maxPriority = 50;
-
     this->id = counter;
     counter++;
 }
