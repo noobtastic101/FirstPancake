@@ -27,7 +27,8 @@ public:
     void print();
 
     virtual ProcessControlBlock * assignChild(ProcessControlBlock * process);
-    virtual ProcessControlBlock * assignChild(TripleLinkedListNode * child);
+
+    virtual ProcessControlBlock *assignChild(TripleLinkedListNode *newChild);
 
     virtual ~TripleLinkedListNode();
 };

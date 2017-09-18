@@ -9,23 +9,15 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
     if(process == nullptr)
         return nullptr;
 
-    cout << "Here 1" << endl;
-
     if(this->alreadyAddedProcess(process->getId()))
         return process;
 
-    cout << "Here 3" << endl;
+    ProcessControlBlock *localProcessBlock = new ProcessControlBlock(process);
 
-    (*(this->processes))[process->getId()] = new ProcessControlBlock(process);
-
-    ProcessControlBlock *addedProcess = this->get(process->getId());
-
-    cout << "Addin to the ready queue" << endl;
+    (*(this->processes))[process->getId()] = localProcessBlock;
 
     if(process->isReady())
-        this->readyProcesses->put(process);
-
-    cout << "Done Addin to the ready queue" << endl;
+        this->readyProcesses->put(localProcessBlock);
 }
 
 ProcessControlBlock Processes::removeHighestProc()
@@ -45,7 +37,7 @@ ProcessControlBlock Processes::removeHighestProc()
 
 int Processes::size() {
     return
-        this->readyProcesses->size();
+            this->processes->size();
 }
 
 bool Processes::alreadyAddedProcess(int processID)
@@ -99,14 +91,10 @@ ProcessControlBlock *Processes::setReady(ProcessControlBlock *process)
 
 ProcessControlBlock *Processes::setReady(int processID)
 {
-    cout << "processID: " << processID << ", Processes size: " << this->processes->size() << endl;
-
     ProcessControlBlock *processControlBlock = this->get(processID);
 
     if(processControlBlock == nullptr)
         return nullptr;
-
-    cout << "Getting here?" << endl;
 
     return
             this->setReady(processControlBlock);
@@ -129,4 +117,10 @@ ProcessControlBlock *Processes::get(int processID)
     std::unordered_map<int, ProcessControlBlock>::iterator item = this->processes->find(processID);
 
     return item == this->processes->end() ? nullptr : &(item->second);
+}
+
+void Processes::printProcesses()
+{
+    for(auto it = this->processes->begin(); it != this->processes->end(); ++it)
+        cout << "Key: " << it->first << ", Value: " << it->second << endl;
 }

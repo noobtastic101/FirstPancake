@@ -29,16 +29,13 @@ ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
 
 TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinkedListNode *right)
 {
-    cout << "Melding 1" << endl;
+    cout << "Melding these two" << endl;
+    left->print();
+    right->print();
+
     Pair<TripleLinkedListNode *> lowestAndHighest = this->lowestAndHighestPriority(left, right);
-
-    cout << "Melding 2" << endl;
-
-    cout << "" << endl;
-    
     lowestAndHighest.right->assignChild(lowestAndHighest.left);
 
-    cout << "Melding 3" << endl;
 
     return lowestAndHighest.right;
 }

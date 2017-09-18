@@ -6,10 +6,11 @@
 #define INC_1_PROCESS_H
 
 #include <iostream>
+#include <string>
 
 using std::cout;
 using std::endl;
-
+using std::string;
 
 class ProcessControlBlock {
 private:

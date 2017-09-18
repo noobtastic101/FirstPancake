@@ -39,6 +39,8 @@ public:
 
     virtual ProcessControlBlock *setReady(int processID);
 
+    void printProcesses();
+
     int size();
     void displayQueue();
     virtual ~Processes();

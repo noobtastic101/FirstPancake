@@ -27,6 +27,9 @@ void runTestOne()
 
     cout << "Added processes" << endl;
 
+    cout << "Displaying the processes added" << endl;
+
+
     cout << "Setting first ready states" << endl;
 
     //Add processes 5, 1, 8, and 11 to the ready queue

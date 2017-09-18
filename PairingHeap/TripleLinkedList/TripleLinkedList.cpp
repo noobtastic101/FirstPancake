@@ -15,12 +15,6 @@ TripleLinkedListNode *TripleLinkedList::getHighestPriority(TripleLinkedListNode 
 Pair<TripleLinkedListNode *>
 TripleLinkedList::lowestAndHighestPriority(TripleLinkedListNode *left, TripleLinkedListNode *right)
 {
-    if(left == nullptr)
-        cout << "GAH WHY NO LEFT" << endl;
-
-    if(right == nullptr)
-        cout << "GAH WHY NO RIGHT" << endl;
-
     if(left->process->getPriority() > right->process->getPriority())
         return Pair<TripleLinkedListNode *>(right, left);
     else

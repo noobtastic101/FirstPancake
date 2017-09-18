@@ -25,10 +25,10 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(ProcessControlBlock *proc
 
 TripleLinkedListNode::TripleLinkedListNode(ProcessControlBlock *process) : process(process) {}
 
-ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *child) {
+ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *newChild)
+{
     TripleLinkedListNode * oldChild = this->child;
-    //this->child = new TripleLinkedListNode(process);
-    this->child = child;
+    this->child = newChild;
 
     this->child->next = oldChild;
     this->child->left = this;
