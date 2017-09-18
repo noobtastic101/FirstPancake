@@ -56,7 +56,7 @@ Processes::~Processes() {
 ProcessControlBlock Processes::getProcess(int processID)
 {
     if(!alreadyAddedProcess(processID)) {
-        return nullptr;
+        return ProcessControlBlock();
     }
 
     return this->processes->at((unsigned long) (processID - 1));

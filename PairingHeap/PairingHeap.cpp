@@ -48,7 +48,7 @@ ProcessControlBlock PairingHeap::removeMax()
         return oldMaxProcess;
     }
 
-    deque<TripleLinkedListNode *> nodeQueue = deque();
+    deque<TripleLinkedListNode *> nodeQueue = deque<TripleLinkedListNode *>();
     TripleLinkedListNode * currentNode = this->root->child;
 
     int count = 1;
