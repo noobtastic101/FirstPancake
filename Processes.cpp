@@ -16,9 +16,9 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
 
     cout << "Here 3" << endl;
 
-    (*(this->processes))[process->getId()] = *process;
+    (*(this->processes))[process->getId()] = new ProcessControlBlock(process);
 
-    cout << "Here 4" << endl;
+    ProcessControlBlock *addedProcess = this->get(process->getId());
 
     cout << "Addin to the ready queue" << endl;
 

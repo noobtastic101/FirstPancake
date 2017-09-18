@@ -75,3 +75,14 @@ void ProcessControlBlock::print()
 {
     cout << "ID: " << this->getId() << ", Priority: " << this->getPriority() << endl;
 }
+
+ProcessControlBlock::ProcessControlBlock(ProcessControlBlock *block)
+{
+    this->newState = block->newState;
+    this->ready = block->ready;
+    this->running = block->running;
+    this->waiting = block->waiting;
+    this->terminated = block->terminated;
+    this->id = block->id;
+    this->priority = block->priority;
+}

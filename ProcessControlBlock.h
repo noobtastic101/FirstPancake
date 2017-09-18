@@ -29,6 +29,8 @@ public:
 
     ProcessControlBlock();
 
+    ProcessControlBlock(ProcessControlBlock *block);
+
     bool isNew() const;
     bool isReady() const;
     bool isRunning() const;
