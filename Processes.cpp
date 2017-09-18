@@ -6,7 +6,8 @@
  *
  *Processes.cpp
  *
- *Purpose: Handles the processes that are used in the process control block
+ *Purpose: Handles the processes that are used in the process control block. This program contains a number of functions
+ * for the ReadyQueue: insetProc, removeHighestProc, size, and displayQueue.
  */
 #include "Processes.h"
 

@@ -6,7 +6,12 @@
  *
  *PairingHeap.cpp
  *
- *Purpose: Pairing heap is the algorithm we chose to implement our triple link list.
+ *Purpose: Pairing heap is the algorithm we chose to implement our triple link list. A pairing heap
+ * will compare two nodes together and the larger node will become the parent of the small node, along with
+ * all of the smaller nodes children and other nodes next to it. We chose to implement a pairing heap as it is
+ * known for having fast implementation and quick assessment of the queue. A pairing heap uses a function called meld,
+ * where it compares two nodes and will meld the smaller node to the larger node. This allows for quick access to the
+ * largest node, always being the parent.
  *
  */
 
@@ -61,6 +66,8 @@ ProcessControlBlock PairingHeap::removeMax()
     ProcessControlBlock oldMaxProcess;
     this->nodesCount--;
 
+    //Before removing the max, the child has to be saved in order to not lose all of the nodes children
+    //of the max node.
     if(this->root->child != nullptr && this->root->child->next == nullptr)
     {
         oldMax = this->root;
@@ -75,6 +82,7 @@ ProcessControlBlock PairingHeap::removeMax()
     deque<TripleLinkedListNode *> nodeQueue = deque<TripleLinkedListNode *>();
     TripleLinkedListNode * currentNode = this->root->child;
 
+    //checks for two nodes before melding them together. Melding only works when there are two nodes.
     int count = 1;
     while(currentNode != nullptr)
     {
@@ -85,6 +93,7 @@ ProcessControlBlock PairingHeap::removeMax()
         count++;
     }
 
+    //if there is only one node, this will push back the current node
     if((count % 2) != 0)
         nodeQueue.push_back(currentNode);
 

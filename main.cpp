@@ -2,6 +2,28 @@
  *Created by Kyle Gullicksen and Benjamin Siegel
  *Date written: 9/4/2017
  *CS433 Assignment #1
+ *
+ *
+ *main.cpp
+ *
+ *Purpose: Implement the tests used to test our heap. The two tests are:
+ *
+ * Test 1 will do the following:
+ *      Add processes to q1
+ *      Remove the process with the highest priority and display q1
+ *      Inset processes into q1
+ *      One by one remove the highest priority process and display q1 after each removal
+ *
+ * Test 2 will do the following:
+ *      This tet will evaluate the performance of our implementation.
+ *      After selecting 10 random processes, it will run the following 1,000,000 times.
+ *
+ *      There will be a rng element that will select on of two tests, the first:
+ *          The process with the highest priority will be removed.
+ *          OR
+ *          A process that currently isn't in q1 will be added.
+ *
+ *        This test will measure the total time it takes to make 1,000,000 iterations and output the final results.
  */
 
 #include <iostream>
@@ -19,7 +41,7 @@ void setAsReadyOrComplain(Processes *processes, int processID)
 }
 
 
-
+//Function for test one
 void runTestOne()
 {
     cout << "Starting off" << endl;

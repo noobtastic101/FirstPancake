@@ -8,6 +8,8 @@
  *
  *Purpose: The purpose of TripleLinkedList.cpp is to implement the triple linked list into our program.
  * This link list contains all the values of the Process control block.
+ * A triple linked list has three components, left, right, and parent. Left and right are children on the parent
+ * above it. This link list will be organized from the pairing heap.
  */
 #include "TripleLinkedList.h"
 

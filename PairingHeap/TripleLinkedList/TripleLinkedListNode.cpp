@@ -49,7 +49,7 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *new
 }
 
 /*
- * Display the IDs and the priorties of the processes in the queue
+ * Display the IDs and the priorities of the processes in the queue
  */
 
 

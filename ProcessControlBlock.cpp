@@ -7,7 +7,8 @@
  *ProcessControlBlock.cpp
  *
  *Purpose: Implementation and structure for the process control block, the data structure representing a process in
- * the system.
+ * the system. The process control block contains all of the functions necessary to change the state of the ID, being:
+ *  NEW, READY, RUNNING, WAITING, or, TERMINATED.
  */
 
 #include "ProcessControlBlock.h"
