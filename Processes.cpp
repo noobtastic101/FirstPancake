@@ -14,13 +14,9 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
     if(this->alreadyAddedProcess(process->getId()))
         return process;
 
-    cout << "Here two" << endl;
-
-    this->addedProcessIDs->insert(process->getId());
-
     cout << "Here 3" << endl;
-    
-    this->processes->push_back(*process);
+
+    (*(this->processes))[process->getId()] = *process;
 
     cout << "Here 4" << endl;
 
@@ -37,11 +33,14 @@ ProcessControlBlock Processes::removeHighestProc()
     ProcessControlBlock block = this->readyProcesses->removeMax();
 
     //The process is no longer ready, it is now running
-    ProcessControlBlock storedProcess = this->processes->at((unsigned long) (block.getId()));
-    storedProcess.setReady(false);
-    storedProcess.setRunning(true);
+//    ProcessControlBlock storedProcess = this->processes->at((unsigned long) (block.getId()));
 
-    return storedProcess;
+    ProcessControlBlock *storedProcess = this->get(block.getId());
+
+    storedProcess->setReady(false);
+    storedProcess->setRunning(true);
+
+    return *storedProcess;
 }
 
 int Processes::size() {
@@ -51,12 +50,10 @@ int Processes::size() {
 
 bool Processes::alreadyAddedProcess(int processID)
 {
-    unordered_set<int>::const_iterator iterator = this->addedProcessIDs->find(processID);
-
-    cout << "Iterator: " << iterator << endl;
+    unordered_map<int, ProcessControlBlock>::const_iterator iterator = this->processes->find(processID);
 
     return
-            iterator != this->addedProcessIDs->end();
+            iterator != this->processes->end();
 
 }
 
@@ -65,7 +62,8 @@ void Processes::displayQueue() {
 }
 
 Processes::~Processes() {
-
+    delete this->readyProcesses;
+    delete this->processes;
 }
 
 ProcessControlBlock Processes::getProcess(int processID)
@@ -74,37 +72,61 @@ ProcessControlBlock Processes::getProcess(int processID)
         return ProcessControlBlock();
     }
 
-    return this->processes->at((unsigned long) (processID - 1));
+    return (*(this->get(processID)));
 }
 
 ProcessControlBlock *Processes::setReady(ProcessControlBlock *process)
 {
+    if(process == nullptr)
+        return nullptr;
+
     if(!alreadyAddedProcess(process->getId()))
         return process;
 
     process->setReady(true);
 
-    ProcessControlBlock processControlBlock = this->processes->at((unsigned long) process->getId() - 1);
+    ProcessControlBlock *processControlBlock = this->get(process->getId());
 
-    if(processControlBlock.isReady())
+    if(processControlBlock->isReady())
         return process;
 
-    processControlBlock.setReady(true);
-    this->readyProcesses->put(&processControlBlock);
+    processControlBlock->setReady(true);
+
+    this->readyProcesses->put(processControlBlock);
 
     return process;
 }
 
 ProcessControlBlock *Processes::setReady(int processID)
 {
-    ProcessControlBlock processControlBlock = this->processes->at((unsigned long) processID - 1);
+    cout << "processID: " << processID << ", Processes size: " << this->processes->size() << endl;
+
+    ProcessControlBlock *processControlBlock = this->get(processID);
+
+    if(processControlBlock == nullptr)
+        return nullptr;
+
+    cout << "Getting here?" << endl;
 
     return
-            this->setReady(&processControlBlock);
+            this->setReady(processControlBlock);
 }
 
 int Processes::getReadyQueueSize()
 {
     return
             this->readyProcesses->size();
+}
+
+Processes::Processes()
+{
+    processes = new unordered_map<int, ProcessControlBlock>();
+    readyProcesses = new PairingHeap();
+}
+
+ProcessControlBlock *Processes::get(int processID)
+{
+    std::unordered_map<int, ProcessControlBlock>::iterator item = this->processes->find(processID);
+
+    return item == this->processes->end() ? nullptr : &(item->second);
 }

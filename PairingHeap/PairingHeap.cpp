@@ -16,14 +16,29 @@ void PairingHeap::print()
 
 ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
 {
+    if(this->size() == 0) {
+        this->root = new TripleLinkedListNode(process);
+        this->nodesCount++;
+        return process;
+    }
+
     this->root = this->meld(this->root, new TripleLinkedListNode(process));
     this->nodesCount++;
+    return process;
 }
 
 TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinkedListNode *right)
 {
+    cout << "Melding 1" << endl;
     Pair<TripleLinkedListNode *> lowestAndHighest = this->lowestAndHighestPriority(left, right);
+
+    cout << "Melding 2" << endl;
+
+    cout << "" << endl;
+    
     lowestAndHighest.right->assignChild(lowestAndHighest.left);
+
+    cout << "Melding 3" << endl;
 
     return lowestAndHighest.right;
 }

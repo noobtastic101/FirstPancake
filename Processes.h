@@ -5,27 +5,28 @@
 #ifndef INC_1_PROCESSES_H
 #define INC_1_PROCESSES_H
 
-#include <unordered_set>
-#include <vector>
+#include <unordered_map>
 #include <iostream>
 
 #include "ProcessControlBlock.h"
 #include "PairingHeap/PairingHeap.h"
 
-using std::unordered_set;
-using std::vector;
 using std::cout;
+using std::unordered_map;
 
 class Processes {
 private:
     bool alreadyAddedProcess(int processID);
 
+    ProcessControlBlock *get(int processID);
+
 protected:
-    unordered_set<int> * addedProcessIDs;
-    vector<ProcessControlBlock> * processes;
+    unordered_map<int, ProcessControlBlock> *processes;
     PairingHeap * readyProcesses;
 
 public:
+    Processes();
+
     ProcessControlBlock * insertProc(ProcessControlBlock *process);
 
     virtual ProcessControlBlock *setReady(ProcessControlBlock *process);
