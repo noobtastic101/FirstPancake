@@ -51,6 +51,4 @@ void TripleLinkedListNode::print()
 }
 
 TripleLinkedListNode::TripleLinkedListNode()
-{
-
-}
+= default;
