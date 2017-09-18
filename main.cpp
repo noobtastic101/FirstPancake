@@ -1,6 +1,4 @@
 #include <iostream>
-#include <vector>
-#include <deque>
 
 #include "Processes.h"
 

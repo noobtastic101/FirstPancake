@@ -19,7 +19,7 @@ using std::deque;
 class PairingHeap : public TripleLinkedList
 {
 private:
-    TripleLinkedListNode *pop_n_get_back(deque &dq);
+    TripleLinkedListNode *pop_n_get_back(deque<TripleLinkedListNode *> &dq);
     void display(TripleLinkedListNode *currentNode);
 
 protected:
