@@ -16,6 +16,8 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
 
     (*(this->processes))[process->getId()] = localProcessBlock;
 
+    cout << "Successfully added process: " << this->get(process->getId())->getId() << endl;
+
     if(process->isReady())
         this->readyProcesses->put(localProcessBlock);
 }
@@ -93,8 +95,10 @@ ProcessControlBlock *Processes::setReady(int processID)
 {
     ProcessControlBlock *processControlBlock = this->get(processID);
 
-    if(processControlBlock == nullptr)
+    if(processControlBlock == nullptr) {
+        cout << "GAH WHY NO FIND: " << processID << endl;
         return nullptr;
+    }
 
     return
             this->setReady(processControlBlock);

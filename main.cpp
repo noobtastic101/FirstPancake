@@ -21,7 +21,7 @@ void runTestOne()
     for(int count = 1; count < 21; count++)
     {
         currentBlock = new ProcessControlBlock();
-
+        cout << "Adding process: " << currentBlock->getId() << endl;
         processes->insertProc(currentBlock);
     }
 
