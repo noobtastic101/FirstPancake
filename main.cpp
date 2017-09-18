@@ -6,7 +6,7 @@ using namespace std;
 
 void setAsReadyOrComplain(Processes *processes, int processID)
 {
-    ProcessControlBlock *block = processes->setProcessAsReady(processID);
+    ProcessControlBlock *block = processes->addProcessToReadyQueue(processID);
 
     if(block == nullptr)
         cout << "HEY MAN WHAT THE SHIT WHY NO WORK " << processID << endl;
@@ -42,20 +42,21 @@ void runTestOne()
     //Add processes 5, 1, 8, and 11 to the ready queue
     setAsReadyOrComplain(processes, 5);
 
-    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
     setAsReadyOrComplain(processes, 1);
 
-    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
 
     setAsReadyOrComplain(processes, 8);
 
-    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
 
     setAsReadyOrComplain(processes, 11);
 
-    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
 
     cout << "Done setting first ready states" << endl;
+
 
     cout << "Displaying queue" << endl;
     processes->displayQueue();
@@ -64,11 +65,11 @@ void runTestOne()
     cout << "Setting the second ready state" << endl;
 
     //Add processes 3, 7, 2, 12 and 9 to the ready queue
-    processes->setProcessAsReady(3);
-    processes->setProcessAsReady(7);
-    processes->setProcessAsReady(2);
-    processes->setProcessAsReady(12);
-    processes->setProcessAsReady(9);
+    processes->addProcessToReadyQueue(3);
+    processes->addProcessToReadyQueue(7);
+    processes->addProcessToReadyQueue(2);
+    processes->addProcessToReadyQueue(12);
+    processes->addProcessToReadyQueue(9);
 
     cout << "Done setting the second ready state" << endl;
 
@@ -78,7 +79,6 @@ void runTestOne()
 
     while(processes->getReadyQueueSize() != 0) {
         process = processes->removeHighestProc();
-        process.print();
     }
 
     cout << "Done iteratively removing the highest element" << endl;
@@ -87,7 +87,81 @@ void runTestOne()
 }
 
 int main() {
-    runTestOne();
+//    runTestOne();
+
+
+    Processes *processes = new Processes();
+
+    ProcessControlBlock *currentBlock = new ProcessControlBlock(8);
+    currentBlock->setReady(true);
+
+    processes->insertProc(currentBlock);
+
+    currentBlock = new ProcessControlBlock(9);
+    currentBlock->setReady(true);
+    processes->insertProc(currentBlock);
+
+    currentBlock = new ProcessControlBlock(3);
+    currentBlock->setReady(true);
+    processes->insertProc(currentBlock);
+
+    currentBlock = new ProcessControlBlock(4);
+    currentBlock->setReady(true);
+    processes->insertProc(currentBlock);
+
+    processes->displayQueue();
+
+    cout << "\n\n\n" << endl;
+
+    processes->removeHighestProc().print();
+    processes->removeHighestProc().print();
+    processes->removeHighestProc().print();
+    processes->removeHighestProc().print();
+
+
+//    Processes * processes = new Processes();
+//
+//    ProcessControlBlock * currentBlock = new ProcessControlBlock(40);
+//    currentBlock->setReady(true);
+//
+//    processes->insertProc(currentBlock);
+//
+//    for(int count = 1; count < 19; count++)
+//    {
+//        currentBlock = new ProcessControlBlock(count);
+//        currentBlock->setReady(true);
+//        processes->insertProc(currentBlock);
+//    }
+//
+//    currentBlock = new ProcessControlBlock(100);
+//    currentBlock->setReady(true);
+//
+//    processes->insertProc(currentBlock);
+//
+//    for(int count = 50; count < 60; count++)
+//    {
+//        currentBlock = new ProcessControlBlock(count);
+//        currentBlock->setReady(true);
+//        processes->insertProc(currentBlock);
+//    }
+//
+//    cout << "First display" << endl;
+//    processes->displayQueue();
+//    cout << "end first display" << endl;
+//
+//    ProcessControlBlock formerMax;
+//
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+
 }
 
 

@@ -17,14 +17,25 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
     (*(this->processes))[process->getId()] = localProcessBlock;
 
     if(process->isReady())
-        this->readyProcesses->put(localProcessBlock);
+        this->addToQueue(localProcessBlock);
+
+//    if(process->isReady())
+//        this->readyProcesses->put(localProcessBlock);
+
 }
 
 ProcessControlBlock Processes::removeHighestProc()
 {
-    ProcessControlBlock formallyHighestPriorityBlock = this->readyProcesses->removeMax();
+    //ProcessControlBlock formallyHighestPriorityBlock = this->readyProcesses->removeMax();
+
+    if(this->readyQueue.empty())
+        return ProcessControlBlock(-1);
+
+    ProcessControlBlock formallyHighestPriorityBlock = this->readyQueue.front();
+    this->readyQueue.erase(this->readyQueue.begin());
 
     ProcessControlBlock *storedProcess = this->get(formallyHighestPriorityBlock.getId());
+
     storedProcess->setReady(false);
     storedProcess->setRunning(true);
 
@@ -46,11 +57,12 @@ bool Processes::alreadyAddedProcess(int processID)
 }
 
 void Processes::displayQueue() {
-    this->readyProcesses->print();
+    for(int index = 0; index < this->readyQueue.size(); index++)
+        this->readyQueue[index].print();
 }
 
 Processes::~Processes() {
-    delete this->readyProcesses;
+    //delete this->readyProcesses;
     delete this->processes;
 }
 
@@ -64,7 +76,7 @@ ProcessControlBlock Processes::getProcess(int processID)
 }
 
 
-ProcessControlBlock *Processes::setProcessAsReady(int processID)
+ProcessControlBlock *Processes::addProcessToReadyQueue(int processID)
 {
     ProcessControlBlock *processControlBlock = this->get(processID);
 
@@ -75,21 +87,24 @@ ProcessControlBlock *Processes::setProcessAsReady(int processID)
         return processControlBlock;
 
     processControlBlock->setReady(true);
-    this->readyProcesses->put(processControlBlock);
+    //this->readyProcesses->put(processControlBlock);
+    this->addToQueue(processControlBlock);
 
     return processControlBlock;
 }
 
 int Processes::getReadyQueueSize()
 {
-    return
-            this->readyProcesses->size();
+//    return
+//            this->readyProcesses->size();
+
+    return this->readyQueue.size();
 }
 
 Processes::Processes()
 {
     processes = new unordered_map<int, ProcessControlBlock>();
-    readyProcesses = new PairingHeap();
+//    readyProcesses = new PairingHeap();
 }
 
 ProcessControlBlock *Processes::get(int processID)
@@ -101,8 +116,34 @@ ProcessControlBlock *Processes::get(int processID)
 
 ProcessControlBlock *Processes::getMax()
 {
-    return
-            this->readyProcesses->getMax();
+//    return
+//            this->readyProcesses->getMax();
+
+    return &(this->readyQueue.front());
 }
 
+void Processes::addToQueue(ProcessControlBlock *block)
+{
+    ProcessControlBlock *localBlock = new ProcessControlBlock(block);
 
+    cout << "Adding an element: " << localBlock->getPriority() << endl;
+
+    if(this->readyQueue.empty()) {
+        this->readyQueue.push_back(localBlock);
+        return;
+    }
+
+    auto itr = this->readyQueue.begin();
+
+    while(itr != this->readyQueue.end()) {
+        if(localBlock->getPriority() > (*itr).getPriority()) {
+            this->readyQueue.insert(itr, *localBlock);
+            cout << "Adding " << localBlock->getPriority() << endl;
+            return;
+        }
+
+        itr++;
+    }
+
+    this->readyQueue.push_back(localBlock);
+}

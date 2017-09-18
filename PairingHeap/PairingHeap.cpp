@@ -48,50 +48,112 @@ ProcessControlBlock PairingHeap::removeMax()
     ProcessControlBlock oldMaxProcess;
     this->nodesCount--;
 
-    if(this->root->child != nullptr && this->root->child->next == nullptr)
+    if(this->root->child == nullptr)
     {
+        oldMaxProcess = ProcessControlBlock(this->root->process);
         oldMax = this->root;
-        this->root = this->root->child;
 
-        oldMaxProcess = ProcessControlBlock(*oldMax->process);
-        delete oldMax;
-
+        this->root = nullptr;
+        this->nodesCount = 0;
         return oldMaxProcess;
     }
+//    else if(this->root->child->next == nullptr)
+//    {
+//        oldMax = this->root;
+//        this->root = this->root->child;
+//        this->root->left = nullptr;
+//
+//        oldMaxProcess = ProcessControlBlock(*oldMax->process);
+//        return oldMaxProcess;
+//    }
+    else {
 
-    deque<TripleLinkedListNode *> nodeQueue = deque<TripleLinkedListNode *>();
-    TripleLinkedListNode * currentNode = this->root->child;
+//        deque<TripleLinkedListNode *> nodeQueue = deque<TripleLinkedListNode *>();
+//
+//        TripleLinkedListNode *currentNode = this->root->child;
+//        TripleLinkedListNode * orginalNext;
+//        TripleLinkedListNode * prev;
+//
+//        //Remove the old max
+//        oldMax = this->root;
+//        oldMaxProcess = ProcessControlBlock(*oldMax->process);
+//        this->root->child->left = nullptr;
+//
+//
+//        int count = 1;
+//        while(currentNode != nullptr)
+//        {
+//            prev = currentNode;
+//
+//            if((count % 2) == 0)
+//            {
+//                orginalNext = currentNode->next;
+//                nodeQueue.push_back(this->meld(currentNode->left, currentNode));
+//                currentNode = orginalNext;
+//            }
+//            else
+//                currentNode = currentNode->next;
+//
+//            count++;
+//        }
+//
+//        if((count % 2) != 0 && nodeQueue.back() != prev)
+//            nodeQueue.push_back(prev);
+//
+////        cout << "Node Queue" << endl;
+////        for(auto it = nodeQueue.begin(); it != nodeQueue.end(); it++)
+////        {
+////            (*it)->print();
+////        }
+////        cout << "End node queue" << endl;
+//
+//        auto nodeQueueIterator = nodeQueue.rbegin();
+//        TripleLinkedListNode * right = *nodeQueueIterator;
+//        nodeQueueIterator++;
+//
+//        for(TripleLinkedListNode * left; nodeQueueIterator != nodeQueue.rend(); nodeQueueIterator++)
+//        {
+//            left = *nodeQueueIterator;
+//            right = this->meld(left, right);
+//
+////            cout << "Right" << endl;
+////            right->print();
+//        }
+//
+////        cout << "New root" << endl;
+////        right->print();
+//
+//        this->root = right;
+//        this->root->left = nullptr;
+//        return oldMaxProcess;
 
-    int count = 1;
-    while(currentNode != nullptr)
-    {
-        if((count % 2) == 0)
-            nodeQueue.push_back(this->meld(currentNode->left, currentNode));
+        deque<TripleLinkedListNode *> nodeQueue;
+        TripleLinkedListNode *currentNode = this->root->child;
+        currentNode->left = nullptr;
 
-        currentNode = currentNode->next;
-        count++;
+        while(currentNode != nullptr) {
+            nodeQueue.push_back(currentNode);
+            currentNode = currentNode->next;
+        }
+
+        TripleLinkedListNode *left;
+        TripleLinkedListNode *right;
+        TripleLinkedListNode *melded;
+
+        while(nodeQueue.size() >= 2) {
+            left = nodeQueue.front();
+            nodeQueue.pop_front();
+
+            right = nodeQueue.front();
+            nodeQueue.pop_front();
+
+            melded = this->meld(left, right);
+            nodeQueue.push_back(melded);
+        }
+
+        this->root = nodeQueue.front();
+        this->nodesCount--;
     }
-
-    if((count % 2) != 0)
-        nodeQueue.push_back(currentNode);
-
-    TripleLinkedListNode * right = this->pop_n_get_back(nodeQueue);
-    TripleLinkedListNode * left;
-
-    //second pass: go right to left
-    for(unsigned long index = nodeQueue.size() - 2; index > -1; index--)
-    {
-        left = this->pop_n_get_back(nodeQueue);
-        right = this->meld(left, right);
-    }
-
-    //check this
-    oldMax = this->root;
-    oldMaxProcess = ProcessControlBlock(*oldMax->process);
-
-    this->root = right;
-
-    return oldMaxProcess;
 }
 
 bool PairingHeap::isEmpty() {
@@ -105,7 +167,6 @@ int PairingHeap::size() {
 ProcessControlBlock *PairingHeap::getMax() {
 
     if(this->root == nullptr) {
-        cout << "GAH WHY NO ROOT" << endl;
         return nullptr;
     }
     
@@ -124,9 +185,9 @@ void PairingHeap::display(TripleLinkedListNode *currentNode)
 {
     if(currentNode != nullptr)
     {
-        display(currentNode->left);
-        display(currentNode->next);
         currentNode->print();
+        display(currentNode->next);
+        display(currentNode->child);
     }
 }
 

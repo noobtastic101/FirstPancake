@@ -30,9 +30,6 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *new
     TripleLinkedListNode * oldChild = this->child;
     this->child = newChild;
 
-    cout << "New child" << endl;
-    this->child->print();
-
     this->child->next = oldChild;
     this->child->left = this;
 
@@ -48,6 +45,33 @@ ProcessControlBlock *TripleLinkedListNode::assignChild(TripleLinkedListNode *new
 void TripleLinkedListNode::print()
 {
     this->process->print();
+
+//    if(this->next == nullptr)
+//        cout << "Next is null" << endl;
+//    else {
+//        cout << "Next is: " << endl;
+//        this->next->print();
+//    }
+//
+//    if(this->left == nullptr)
+//        cout << "left is null" << endl;
+//    else {
+//        cout << "left is: " << endl;
+//        this->left->print();
+//    }
+//
+//
+//    if(this->child == nullptr)
+//        cout << "child is null" << endl;
+//    else {
+//        cout << "child is: " << endl;
+//        this->child->print();
+//    }
+//
+//    cout << "" << endl;
+//    cout << "" << endl;
+//    cout << "" << endl;
+
 }
 
 TripleLinkedListNode::TripleLinkedListNode()

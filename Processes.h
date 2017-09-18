@@ -7,24 +7,30 @@
 
 #include <unordered_map>
 #include <iostream>
+#include <vector>
 
 #include "ProcessControlBlock.h"
 #include "PairingHeap/PairingHeap.h"
 
 using std::cout;
 using std::unordered_map;
+using std::vector;
 
 class Processes {
 private:
     bool alreadyAddedProcess(int processID);
-
     ProcessControlBlock *get(int processID);
+
+    int currentMaxPriority;
 
 protected:
     unordered_map<int, ProcessControlBlock> *processes;
-    PairingHeap * readyProcesses;
+    vector<ProcessControlBlock> readyQueue;
+
+    void addToQueue(ProcessControlBlock *block);
 
 public:
+
     Processes();
 
     ProcessControlBlock * insertProc(ProcessControlBlock *process);
@@ -34,7 +40,7 @@ public:
     ProcessControlBlock getProcess(int processID);
     int getReadyQueueSize();
 
-    ProcessControlBlock *setProcessAsReady(int processID);
+    ProcessControlBlock *addProcessToReadyQueue(int processID);
 
     int size();
     void displayQueue();
