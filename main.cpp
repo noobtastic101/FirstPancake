@@ -103,7 +103,7 @@ void runTestOne(Processes * processes)
 
 int main() {
 
-    Processes * processes = new Processes();
+    Processes *processes = new Processes();
 
     runTestOne(processes);
     runTestTwo(processes);
@@ -111,80 +111,7 @@ int main() {
     delete processes;
 
 
-//    Processes *processes = new Processes();
-//
-//    ProcessControlBlock *currentBlock = new ProcessControlBlock(8);
-//    currentBlock->setReady(true);
-//
-//    processes->insertProc(currentBlock);
-//
-//    currentBlock = new ProcessControlBlock(9);
-//    currentBlock->setReady(true);
-//    processes->insertProc(currentBlock);
-//
-//    currentBlock = new ProcessControlBlock(3);
-//    currentBlock->setReady(true);
-//    processes->insertProc(currentBlock);
-//
-//    currentBlock = new ProcessControlBlock(4);
-//    currentBlock->setReady(true);
-//    processes->insertProc(currentBlock);
-//
-//    processes->displayQueue();
-//
-//    cout << "\n\n\n" << endl;
-//
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-
-
-//    Processes * processes = new Processes();
-//
-//    ProcessControlBlock * currentBlock = new ProcessControlBlock(40);
-//    currentBlock->setReady(true);
-//
-//    processes->insertProc(currentBlock);
-//
-//    for(int count = 1; count < 19; count++)
-//    {
-//        currentBlock = new ProcessControlBlock(count);
-//        currentBlock->setReady(true);
-//        processes->insertProc(currentBlock);
-//    }
-//
-//    currentBlock = new ProcessControlBlock(100);
-//    currentBlock->setReady(true);
-//
-//    processes->insertProc(currentBlock);
-//
-//    for(int count = 50; count < 60; count++)
-//    {
-//        currentBlock = new ProcessControlBlock(count);
-//        currentBlock->setReady(true);
-//        processes->insertProc(currentBlock);
-//    }
-//
-//    cout << "First display" << endl;
-//    processes->displayQueue();
-//    cout << "end first display" << endl;
-//
-//    ProcessControlBlock formerMax;
-//
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-//    processes->removeHighestProc().print();
-
 }
-
 
 /*
  *

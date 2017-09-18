@@ -1,9 +1,18 @@
-//
-// Created by stoffel on 9/11/17.
-//
+/*
+ *Created by Kyle Gullicksen and Benjamin Siegel
+ *Date written: 9/4/2017
+ *CS433 Assignment #1
+ *
+ *
+ *Processes.cpp
+ *
+ *Purpose: Handles the processes that are used in the process control block. This program contains a number of functions
+ * for the ReadyQueue: insetProc, removeHighestProc, size, and displayQueue.
+ */
 
 #include "Processes.h"
 
+//insertProc will insert a new process in to the process control block
 ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
 
     if(process == nullptr)
@@ -24,6 +33,7 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
 
 }
 
+//removeHighestProc will look for the highest priority and remove it
 ProcessControlBlock Processes::removeHighestProc()
 {
     //ProcessControlBlock formallyHighestPriorityBlock = this->readyProcesses->removeMax();
@@ -43,11 +53,13 @@ ProcessControlBlock Processes::removeHighestProc()
     return *storedProcess;
 }
 
+//size returns the current size of the process control block
 int Processes::size() {
     return
             this->processes->size();
 }
 
+//alreadyAddedProcess will check to see if a process has already been added to the process control block
 bool Processes::alreadyAddedProcess(int processID)
 {
     unordered_map<int, ProcessControlBlock>::const_iterator iterator = this->processes->find(processID);
@@ -57,6 +69,7 @@ bool Processes::alreadyAddedProcess(int processID)
 
 }
 
+//displayQueue will display all of the processes in the queue
 void Processes::displayQueue() {
     for(int index = 0; index < this->readyQueue.size(); index++)
         this->readyQueue[index].print();
@@ -67,6 +80,7 @@ Processes::~Processes() {
     delete this->processes;
 }
 
+//getProcess will get the process from the ID
 ProcessControlBlock Processes::getProcess(int processID)
 {
     if(!alreadyAddedProcess(processID)) {
@@ -76,7 +90,8 @@ ProcessControlBlock Processes::getProcess(int processID)
     return (*(this->get(processID)));
 }
 
-
+//setProcessAsReady will check for the process to make sure it isn't already in the process
+//control block and then get it ready to be insterted int it.
 ProcessControlBlock *Processes::addProcessToReadyQueue(int processID)
 {
     ProcessControlBlock *processControlBlock = this->get(processID);
@@ -98,6 +113,7 @@ ProcessControlBlock *Processes::addProcessToReadyQueue(int processID)
     return processControlBlock;
 }
 
+//getReadyQueueSize will return the size of the ready queue
 int Processes::getReadyQueueSize()
 {
 //    return
@@ -112,6 +128,7 @@ Processes::Processes()
 //    readyProcesses = new PairingHeap();
 }
 
+//get will first look for the process id then return it
 ProcessControlBlock *Processes::get(int processID)
 {
     auto item = this->processes->find(processID);
@@ -127,6 +144,7 @@ ProcessControlBlock *Processes::getMax()
     return &(this->readyQueue.front());
 }
 
+//addToQueue will add the next node to the queue as long as it isn't already in there.
 void Processes::addToQueue(ProcessControlBlock *block)
 {
     ProcessControlBlock *localBlock = new ProcessControlBlock(block);
@@ -150,6 +168,7 @@ void Processes::addToQueue(ProcessControlBlock *block)
     this->readyQueue.push_back(*localBlock);
 }
 
+//changePriorityInProcesses will set the current processID's priority to the new priority.
 bool Processes::changePriorityInProcesses(int processID, int newPriority)
 {
     this->get(processID)->setPriority(newPriority);
