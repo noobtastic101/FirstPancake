@@ -19,8 +19,7 @@ using std::deque;
 class PairingHeap : public TripleLinkedList
 {
 private:
-    TripleLinkedListNode * pop_n_get_back(deque & dq);
-
+    TripleLinkedListNode *pop_n_get_back(deque &dq);
     void display(TripleLinkedListNode *currentNode);
 
 protected:
@@ -29,7 +28,8 @@ protected:
 
 public:
     ProcessControlBlock * put(ProcessControlBlock * process);
-    ProcessControlBlock * removeMax();
+
+    ProcessControlBlock removeMax();
     bool isEmpty();
     int size();
     ProcessControlBlock * getMax();

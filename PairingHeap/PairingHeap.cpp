@@ -17,6 +17,7 @@ void PairingHeap::print()
 ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
 {
     this->root = this->meld(this->root, new TripleLinkedListNode(process));
+    this->nodesCount++;
 }
 
 TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinkedListNode *right)
@@ -27,15 +28,24 @@ TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinked
     return lowestAndHighest.right;
 }
 
-ProcessControlBlock *PairingHeap::removeMax()
+ProcessControlBlock PairingHeap::removeMax()
 {
     //first pass: go left to right. Meld every 2 nodes into a new pairing heap, and store the new heap in a
     //queue
 
+    TripleLinkedListNode *oldMax;
+    ProcessControlBlock oldMaxProcess;
+    this->nodesCount--;
+
     if(this->root->child != nullptr && this->root->child->next == nullptr)
     {
+        oldMax = this->root;
         this->root = this->root->child;
-        return this->root->process;
+
+        oldMaxProcess = ProcessControlBlock(*oldMax->process);
+        delete oldMax;
+
+        return oldMaxProcess;
     }
 
     deque<TripleLinkedListNode *> nodeQueue = deque();
@@ -65,7 +75,12 @@ ProcessControlBlock *PairingHeap::removeMax()
     }
 
     //check this
+    oldMax = this->root;
+    oldMaxProcess = ProcessControlBlock(*oldMax->process);
+
     this->root = right;
+
+    return oldMaxProcess;
 }
 
 bool PairingHeap::isEmpty() {
@@ -73,14 +88,14 @@ bool PairingHeap::isEmpty() {
 }
 
 int PairingHeap::size() {
-    return 0;
+    return nodesCount;
 }
 
 ProcessControlBlock *PairingHeap::getMax() {
     return this->root->process;
 }
 
-TripleLinkedListNode *PairingHeap::pop_n_get_back(deque &dq)
+TripleLinkedListNode *PairingHeap::pop_n_get_back(deque<TripleLinkedListNode *> &dq)
 {
     TripleLinkedListNode * backNode = dq.back();
     dq.pop_back();

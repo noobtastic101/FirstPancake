@@ -19,23 +19,38 @@ void runTestOne()
     for(int count = 1; count < 21; count++)
     {
         currentBlock = new ProcessControlBlock();
-        currentBlock->setReady(true);
 
         processes->insertProc(currentBlock);
     }
 
 
+    //Add processes 5, 1, 8, and 11 to the ready queue
+    processes->setReady(5);
+    processes->setReady(1);
+    processes->setReady(8);
+    processes->setReady(11);
+
+    processes->displayQueue();
+
+    //Add processes 3, 7, 2, 12 and 9 to the ready queue
+    processes->setReady(3);
+    processes->setReady(7);
+    processes->setReady(2);
+    processes->setReady(12);
+    processes->setReady(9);
+
+    ProcessControlBlock process;
+
+    while(processes->getReadyQueueSize() != 0) {
+        process = processes->removeHighestProc();
+        process.print();
+    }
+
     delete processes;
 }
 
 int main() {
-    deque<int> example;
-
-    example.push_back(5);
-    example.push_back(6);
-    example.push_back(7);
-
-    cout << "Front: " << example.front() << endl;
+    runTestOne();
 }
 
 

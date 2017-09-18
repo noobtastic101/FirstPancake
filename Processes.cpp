@@ -19,12 +19,16 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
         this->readyProcesses->put(process);
 }
 
-ProcessControlBlock *Processes::removeHighestProc(ProcessControlBlock *process)
+ProcessControlBlock Processes::removeHighestProc()
 {
-    if(process == nullptr || !alreadyAddedProcess(process->getId()))
-        return nullptr;
+    ProcessControlBlock block = this->readyProcesses->removeMax();
 
-    this->readyProcesses->removeMax();
+    //The process is no longer ready, it is now running
+    ProcessControlBlock storedProcess = this->processes->at((unsigned long) (block.getId()));
+    storedProcess.setReady(false);
+    storedProcess.setRunning(true);
+
+    return storedProcess;
 }
 
 int Processes::size() {
@@ -47,4 +51,45 @@ void Processes::displayQueue() {
 
 Processes::~Processes() {
 
+}
+
+ProcessControlBlock Processes::getProcess(int processID)
+{
+    if(!alreadyAddedProcess(processID)) {
+        return nullptr;
+    }
+
+    return this->processes->at((unsigned long) (processID - 1));
+}
+
+ProcessControlBlock *Processes::setReady(ProcessControlBlock *process)
+{
+    if(!alreadyAddedProcess(process->getId()))
+        return process;
+
+    process->setReady(true);
+
+    ProcessControlBlock processControlBlock = this->processes->at((unsigned long) process->getId() - 1);
+
+    if(processControlBlock.isReady())
+        return process;
+
+    processControlBlock.setReady(true);
+    this->readyProcesses->put(&processControlBlock);
+
+    return process;
+}
+
+ProcessControlBlock *Processes::setReady(int processID)
+{
+    ProcessControlBlock processControlBlock = this->processes->at((unsigned long) processID - 1);
+
+    return
+            this->setReady(&processControlBlock);
+}
+
+int Processes::getReadyQueueSize()
+{
+    return
+            this->readyProcesses->size();
 }

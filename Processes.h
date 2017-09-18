@@ -27,7 +27,17 @@ protected:
 
 public:
     ProcessControlBlock * insertProc(ProcessControlBlock *process);
-    ProcessControlBlock * removeHighestProc(ProcessControlBlock *process);
+
+    virtual ProcessControlBlock *setReady(ProcessControlBlock *process);
+
+    ProcessControlBlock removeHighestProc();
+
+    ProcessControlBlock getProcess(int processID);
+
+    int getReadyQueueSize();
+
+    virtual ProcessControlBlock *setReady(int processID);
+
     int size();
     void displayQueue();
     virtual ~Processes();
