@@ -8,7 +8,11 @@ using namespace std;
 
 void runTestOne()
 {
+    cout << "Starting off" << endl;
+
     Processes * processes = new Processes();
+
+    cout << "Created processes" << endl;
 
     //Add 20 processes, with a READY state
 
@@ -21,6 +25,9 @@ void runTestOne()
         processes->insertProc(currentBlock);
     }
 
+    cout << "Added processes" << endl;
+
+    cout << "Setting first ready states" << endl;
 
     //Add processes 5, 1, 8, and 11 to the ready queue
     processes->setReady(5);
@@ -28,7 +35,13 @@ void runTestOne()
     processes->setReady(8);
     processes->setReady(11);
 
+    cout << "Done setting first ready states" << endl;
+
+    cout << "Displaying queue" << endl;
     processes->displayQueue();
+    cout << "Done displaying the queue" << endl;
+
+    cout << "Setting the second ready state" << endl;
 
     //Add processes 3, 7, 2, 12 and 9 to the ready queue
     processes->setReady(3);
@@ -37,12 +50,18 @@ void runTestOne()
     processes->setReady(12);
     processes->setReady(9);
 
+    cout << "Done setting the second ready state" << endl;
+
     ProcessControlBlock process;
+
+    cout << "Iteratively removing the highest element" << endl;
 
     while(processes->getReadyQueueSize() != 0) {
         process = processes->removeHighestProc();
         process.print();
     }
+
+    cout << "Done iteratively removing the highest element" << endl;
 
     delete processes;
 }

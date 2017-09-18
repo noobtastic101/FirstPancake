@@ -9,14 +9,27 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
     if(process == nullptr)
         return nullptr;
 
+    cout << "Here 1" << endl;
+
     if(this->alreadyAddedProcess(process->getId()))
         return process;
 
+    cout << "Here two" << endl;
+
     this->addedProcessIDs->insert(process->getId());
+
+    cout << "Here 3" << endl;
+    
     this->processes->push_back(*process);
+
+    cout << "Here 4" << endl;
+
+    cout << "Addin to the ready queue" << endl;
 
     if(process->isReady())
         this->readyProcesses->put(process);
+
+    cout << "Done Addin to the ready queue" << endl;
 }
 
 ProcessControlBlock Processes::removeHighestProc()
@@ -39,6 +52,8 @@ int Processes::size() {
 bool Processes::alreadyAddedProcess(int processID)
 {
     unordered_set<int>::const_iterator iterator = this->addedProcessIDs->find(processID);
+
+    cout << "Iterator: " << iterator << endl;
 
     return
             iterator != this->addedProcessIDs->end();
