@@ -29,7 +29,6 @@ protected:
 public:
 
     ProcessControlBlock();
-
     ProcessControlBlock(ProcessControlBlock *block);
 
     bool isNew() const;

@@ -119,8 +119,4 @@ ProcessControlBlock *Processes::get(int processID)
     return item == this->processes->end() ? nullptr : &(item->second);
 }
 
-void Processes::printProcesses()
-{
-    for(auto it = this->processes->begin(); it != this->processes->end(); ++it)
-        cout << "Key: " << it->first << ", Value: " << it->second << endl;
-}
+
