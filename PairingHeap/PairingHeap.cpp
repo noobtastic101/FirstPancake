@@ -20,22 +20,21 @@ ProcessControlBlock *PairingHeap::put(ProcessControlBlock *process)
         this->root = new TripleLinkedListNode(process);
         this->nodesCount++;
         return process;
+    } else {
+        this->root = this->meld(this->root, new TripleLinkedListNode(process));
+        this->nodesCount++;
+        return process;
     }
-
-    this->root = this->meld(this->root, new TripleLinkedListNode(process));
-    this->nodesCount++;
-    return process;
 }
 
 TripleLinkedListNode *PairingHeap::meld(TripleLinkedListNode *left, TripleLinkedListNode *right)
 {
-    cout << "Melding these two" << endl;
-    left->print();
-    right->print();
+//    cout << "Melding these two" << endl;
+//    left->print();
+//    right->print();
 
     Pair<TripleLinkedListNode *> lowestAndHighest = this->lowestAndHighestPriority(left, right);
     lowestAndHighest.right->assignChild(lowestAndHighest.left);
-
 
     return lowestAndHighest.right;
 }
@@ -104,6 +103,12 @@ int PairingHeap::size() {
 }
 
 ProcessControlBlock *PairingHeap::getMax() {
+
+    if(this->root == nullptr) {
+        cout << "GAH WHY NO ROOT" << endl;
+        return nullptr;
+    }
+    
     return this->root->process;
 }
 

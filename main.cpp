@@ -4,6 +4,14 @@
 
 using namespace std;
 
+void setAsReadyOrComplain(Processes *processes, int processID)
+{
+    ProcessControlBlock *block = processes->setProcessAsReady(processID);
+
+    if(block == nullptr)
+        cout << "HEY MAN WHAT THE SHIT WHY NO WORK " << processID << endl;
+}
+
 
 
 void runTestOne()
@@ -20,8 +28,7 @@ void runTestOne()
 
     for(int count = 1; count < 21; count++)
     {
-        currentBlock = new ProcessControlBlock();
-        cout << "Adding process: " << currentBlock->getId() << endl;
+        currentBlock = new ProcessControlBlock(count);
         processes->insertProc(currentBlock);
     }
 
@@ -33,10 +40,20 @@ void runTestOne()
     cout << "Setting first ready states" << endl;
 
     //Add processes 5, 1, 8, and 11 to the ready queue
-    processes->setReady(5);
-    processes->setReady(1);
-    processes->setReady(8);
-    processes->setReady(11);
+    setAsReadyOrComplain(processes, 5);
+
+    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+    setAsReadyOrComplain(processes, 1);
+
+    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+
+    setAsReadyOrComplain(processes, 8);
+
+    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
+
+    setAsReadyOrComplain(processes, 11);
+
+    cout << "Highest priority process: " << processes->getMax()->getId() << endl;
 
     cout << "Done setting first ready states" << endl;
 
@@ -47,11 +64,11 @@ void runTestOne()
     cout << "Setting the second ready state" << endl;
 
     //Add processes 3, 7, 2, 12 and 9 to the ready queue
-    processes->setReady(3);
-    processes->setReady(7);
-    processes->setReady(2);
-    processes->setReady(12);
-    processes->setReady(9);
+    processes->setProcessAsReady(3);
+    processes->setProcessAsReady(7);
+    processes->setProcessAsReady(2);
+    processes->setProcessAsReady(12);
+    processes->setProcessAsReady(9);
 
     cout << "Done setting the second ready state" << endl;
 

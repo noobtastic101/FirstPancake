@@ -29,6 +29,9 @@ protected:
 public:
 
     ProcessControlBlock();
+
+    ProcessControlBlock(int priority);
+
     ProcessControlBlock(ProcessControlBlock *block);
 
     bool isNew() const;

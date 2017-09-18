@@ -16,21 +16,15 @@ ProcessControlBlock *Processes::insertProc(ProcessControlBlock *process) {
 
     (*(this->processes))[process->getId()] = localProcessBlock;
 
-    cout << "Successfully added process: " << this->get(process->getId())->getId() << endl;
-
     if(process->isReady())
         this->readyProcesses->put(localProcessBlock);
 }
 
 ProcessControlBlock Processes::removeHighestProc()
 {
-    ProcessControlBlock block = this->readyProcesses->removeMax();
+    ProcessControlBlock formallyHighestPriorityBlock = this->readyProcesses->removeMax();
 
-    //The process is no longer ready, it is now running
-//    ProcessControlBlock storedProcess = this->processes->at((unsigned long) (block.getId()));
-
-    ProcessControlBlock *storedProcess = this->get(block.getId());
-
+    ProcessControlBlock *storedProcess = this->get(formallyHighestPriorityBlock.getId());
     storedProcess->setReady(false);
     storedProcess->setRunning(true);
 
@@ -69,39 +63,21 @@ ProcessControlBlock Processes::getProcess(int processID)
     return (*(this->get(processID)));
 }
 
-ProcessControlBlock *Processes::setReady(ProcessControlBlock *process)
-{
-    if(process == nullptr)
-        return nullptr;
 
-    if(!alreadyAddedProcess(process->getId()))
-        return process;
-
-    process->setReady(true);
-
-    ProcessControlBlock *processControlBlock = this->get(process->getId());
-
-    if(processControlBlock->isReady())
-        return process;
-
-    processControlBlock->setReady(true);
-
-    this->readyProcesses->put(processControlBlock);
-
-    return process;
-}
-
-ProcessControlBlock *Processes::setReady(int processID)
+ProcessControlBlock *Processes::setProcessAsReady(int processID)
 {
     ProcessControlBlock *processControlBlock = this->get(processID);
 
-    if(processControlBlock == nullptr) {
-        cout << "GAH WHY NO FIND: " << processID << endl;
+    if(processControlBlock == nullptr)
         return nullptr;
-    }
 
-    return
-            this->setReady(processControlBlock);
+    if(processControlBlock->isReady())
+        return processControlBlock;
+
+    processControlBlock->setReady(true);
+    this->readyProcesses->put(processControlBlock);
+
+    return processControlBlock;
 }
 
 int Processes::getReadyQueueSize()
@@ -118,9 +94,15 @@ Processes::Processes()
 
 ProcessControlBlock *Processes::get(int processID)
 {
-    std::unordered_map<int, ProcessControlBlock>::iterator item = this->processes->find(processID);
+    auto item = this->processes->find(processID);
 
     return item == this->processes->end() ? nullptr : &(item->second);
+}
+
+ProcessControlBlock *Processes::getMax()
+{
+    return
+            this->readyProcesses->getMax();
 }
 
 

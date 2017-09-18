@@ -57,7 +57,7 @@ void ProcessControlBlock::setId(int id) {
 
 ProcessControlBlock::ProcessControlBlock()
 {
-    this->id = counter;
+    this->id = this->priority = counter;
     counter++;
 }
 
@@ -85,4 +85,9 @@ ProcessControlBlock::ProcessControlBlock(ProcessControlBlock *block)
     this->terminated = block->terminated;
     this->id = block->id;
     this->priority = block->priority;
+}
+
+ProcessControlBlock::ProcessControlBlock(int priority)
+{
+    this->id = this->priority = priority;
 }

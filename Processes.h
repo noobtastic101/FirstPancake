@@ -28,18 +28,13 @@ public:
     Processes();
 
     ProcessControlBlock * insertProc(ProcessControlBlock *process);
-
-    virtual ProcessControlBlock *setReady(ProcessControlBlock *process);
-
     ProcessControlBlock removeHighestProc();
 
+    ProcessControlBlock *getMax();
     ProcessControlBlock getProcess(int processID);
-
     int getReadyQueueSize();
 
-    virtual ProcessControlBlock *setReady(int processID);
-
-    void printProcesses();
+    ProcessControlBlock *setProcessAsReady(int processID);
 
     int size();
     void displayQueue();
