@@ -35,7 +35,6 @@ void runTestTwo(Processes * processes)
     {
         coinToss = (rand() % 2);
 
-
         //remove process
         if(coinToss == 0)
         {
