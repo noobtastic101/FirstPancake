@@ -8,13 +8,16 @@
 #include <unordered_map>
 #include <iostream>
 #include <vector>
+#include <cstdlib>
+#include <time.h>
+#include <chrono>
 
 #include "ProcessControlBlock.h"
-#include "PairingHeap/PairingHeap.h"
 
 using std::cout;
 using std::unordered_map;
 using std::vector;
+using namespace std::chrono;
 
 class Processes {
 private:
@@ -41,6 +44,8 @@ public:
     int getReadyQueueSize();
 
     ProcessControlBlock *addProcessToReadyQueue(int processID);
+
+    bool changePriorityInProcesses(int processID, int newPriority);
 
     int size();
     void displayQueue();

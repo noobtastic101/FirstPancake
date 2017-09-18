@@ -4,21 +4,63 @@
 
 using namespace std;
 
-void setAsReadyOrComplain(Processes *processes, int processID)
+void runTestTwo(Processes * processes)
 {
-    ProcessControlBlock *block = processes->addProcessToReadyQueue(processID);
+//    int randomNumber = rand() % 12 + 1;
 
-    if(block == nullptr)
-        cout << "HEY MAN WHAT THE SHIT WHY NO WORK " << processID << endl;
+    //First, select 10 processes at random
+    vector<int> randomProcesssIDs;
+    for(int count = 0; count < 10; count++)
+        randomProcesssIDs.push_back((rand() % 20) + 1);
+
+    vector<int> randomNewPriorties;
+    srand(time(NULL));
+
+    for(int count = 0; count < randomProcesssIDs.size(); count++)
+        randomNewPriorties.push_back((rand() % 50) + 1);
+
+    for(int index = 0; index < randomProcesssIDs.size(); index++)
+    {
+        processes->changePriorityInProcesses(randomProcesssIDs[index], randomNewPriorties[index]);
+    }
+
+
+    int coinToss = 0;
+
+    milliseconds start = duration_cast< milliseconds >(
+            system_clock::now().time_since_epoch()
+    );
+
+    for(int count = 0; count < 1000000; count++)
+    {
+        coinToss = (rand() % 2);
+
+
+        //remove process
+        if(coinToss == 0)
+        {
+            processes->removeHighestProc();
+        }
+        else //add process
+        {
+            processes->addProcessToReadyQueue(rand() % 20);
+        }
+    }
+
+    milliseconds end = duration_cast< milliseconds >(
+            system_clock::now().time_since_epoch()
+    );
+    
+    milliseconds elapsed = end - start;
+
+    cout << "Elapsed: " << elapsed.count() << "ms" << endl;
+    processes->displayQueue();
 }
 
 
-
-void runTestOne()
+void runTestOne(Processes * processes)
 {
     cout << "Starting off" << endl;
-
-    Processes * processes = new Processes();
 
     cout << "Created processes" << endl;
 
@@ -32,37 +74,15 @@ void runTestOne()
         processes->insertProc(currentBlock);
     }
 
-    cout << "Added processes" << endl;
-
-    cout << "Displaying the processes added" << endl;
-
-
-    cout << "Setting first ready states" << endl;
-
-    //Add processes 5, 1, 8, and 11 to the ready queue
-    setAsReadyOrComplain(processes, 5);
-
-    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
-    setAsReadyOrComplain(processes, 1);
-
-    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
-
-    setAsReadyOrComplain(processes, 8);
-
-    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
-
-    setAsReadyOrComplain(processes, 11);
-
-    //cout << "Highest priority process: " << processes->getMax()->getId() << endl;
-
-    cout << "Done setting first ready states" << endl;
+    processes->addProcessToReadyQueue(5);
+    processes->addProcessToReadyQueue(1);
+    processes->addProcessToReadyQueue(8);
+    processes->addProcessToReadyQueue(11);
 
 
     cout << "Displaying queue" << endl;
     processes->displayQueue();
     cout << "Done displaying the queue" << endl;
-
-    cout << "Setting the second ready state" << endl;
 
     //Add processes 3, 7, 2, 12 and 9 to the ready queue
     processes->addProcessToReadyQueue(3);
@@ -70,8 +90,6 @@ void runTestOne()
     processes->addProcessToReadyQueue(2);
     processes->addProcessToReadyQueue(12);
     processes->addProcessToReadyQueue(9);
-
-    cout << "Done setting the second ready state" << endl;
 
     ProcessControlBlock process;
 
@@ -82,41 +100,45 @@ void runTestOne()
     }
 
     cout << "Done iteratively removing the highest element" << endl;
-
-    delete processes;
 }
 
 int main() {
-//    runTestOne();
+
+    Processes * processes = new Processes();
+
+    runTestOne(processes);
+    runTestTwo(processes);
+
+    delete processes;
 
 
-    Processes *processes = new Processes();
-
-    ProcessControlBlock *currentBlock = new ProcessControlBlock(8);
-    currentBlock->setReady(true);
-
-    processes->insertProc(currentBlock);
-
-    currentBlock = new ProcessControlBlock(9);
-    currentBlock->setReady(true);
-    processes->insertProc(currentBlock);
-
-    currentBlock = new ProcessControlBlock(3);
-    currentBlock->setReady(true);
-    processes->insertProc(currentBlock);
-
-    currentBlock = new ProcessControlBlock(4);
-    currentBlock->setReady(true);
-    processes->insertProc(currentBlock);
-
-    processes->displayQueue();
-
-    cout << "\n\n\n" << endl;
-
-    processes->removeHighestProc().print();
-    processes->removeHighestProc().print();
-    processes->removeHighestProc().print();
-    processes->removeHighestProc().print();
+//    Processes *processes = new Processes();
+//
+//    ProcessControlBlock *currentBlock = new ProcessControlBlock(8);
+//    currentBlock->setReady(true);
+//
+//    processes->insertProc(currentBlock);
+//
+//    currentBlock = new ProcessControlBlock(9);
+//    currentBlock->setReady(true);
+//    processes->insertProc(currentBlock);
+//
+//    currentBlock = new ProcessControlBlock(3);
+//    currentBlock->setReady(true);
+//    processes->insertProc(currentBlock);
+//
+//    currentBlock = new ProcessControlBlock(4);
+//    currentBlock->setReady(true);
+//    processes->insertProc(currentBlock);
+//
+//    processes->displayQueue();
+//
+//    cout << "\n\n\n" << endl;
+//
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
+//    processes->removeHighestProc().print();
 
 
 //    Processes * processes = new Processes();

@@ -39,7 +39,6 @@ ProcessControlBlock Processes::removeHighestProc()
 
     storedProcess->setReady(false);
     storedProcess->setRunning(true);
-    storedProcess->print();
 
     return *storedProcess;
 }
@@ -89,6 +88,10 @@ ProcessControlBlock *Processes::addProcessToReadyQueue(int processID)
         return processControlBlock;
 
     processControlBlock->setReady(true);
+
+    if(processControlBlock->isRunning())
+        processControlBlock->setRunning(false);
+
     //this->readyProcesses->put(processControlBlock);
     this->addToQueue(processControlBlock);
 
@@ -128,10 +131,8 @@ void Processes::addToQueue(ProcessControlBlock *block)
 {
     ProcessControlBlock *localBlock = new ProcessControlBlock(block);
 
-    cout << "Adding an element: " << localBlock->getPriority() << endl;
-
     if(this->readyQueue.empty()) {
-        this->readyQueue.push_back(localBlock);
+        this->readyQueue.push_back(*localBlock);
         return;
     }
 
@@ -140,12 +141,16 @@ void Processes::addToQueue(ProcessControlBlock *block)
     while(itr != this->readyQueue.end()) {
         if(localBlock->getPriority() > (*itr).getPriority()) {
             this->readyQueue.insert(itr, *localBlock);
-            cout << "Adding " << localBlock->getPriority() << endl;
             return;
         }
 
         itr++;
     }
 
-    this->readyQueue.push_back(localBlock);
+    this->readyQueue.push_back(*localBlock);
+}
+
+bool Processes::changePriorityInProcesses(int processID, int newPriority)
+{
+    this->get(processID)->setPriority(newPriority);
 }
